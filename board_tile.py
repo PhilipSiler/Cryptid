@@ -2,7 +2,7 @@ import random
 
 ###GAME VARIABLES GO HERE
 num_tiles = 108
-num_structures = 8
+num_structures = 8 #randomly selects a number between 5 and 8, for the # of structures on the board
 class Tile:
         def __init__(self, terrain, structure=None, animal=None, cubes=None) -> None:
             self.terrain_type = terrain
@@ -14,6 +14,9 @@ class Board:
     def __init__(self) -> None:
         self.pieces = self.random_board_maker()#random.shuffle(self.pieces)
         self.structure_indices = random.sample(range(0,num_tiles), num_structures)
+        for index in self.structure_indices:
+            self.pieces[index].structure = structures[0]
+            structures.pop(0)
 
         #returns a randomly-ordered array of range(1,7) 
     def random_board_maker(self) -> list[list]:
@@ -44,16 +47,7 @@ def structure_maker() -> list[Structure]:
     for color in colors:
         for type in types:
             structures.append(Structure(color, type))
-    return structures
-
-#returns all possible structures
-def structure_maker() -> list[Structure]:
-    structures = []
-    colors = ["Blue", "Black", "White", "Green"]
-    types = ["Abandoned Shack", "Standing Stone"]
-    for color in colors:
-        for type in types:
-            structures.append(Structure(color, type))
+    random.shuffle(structures)
     return structures
 
 structures = structure_maker()
@@ -61,4 +55,7 @@ board_arr = [None] * 108
 
 my_board = Board()
 for hex in my_board.pieces:
-    print(vars(hex))
+    if hex.structure == None:
+        print(vars(hex))
+    else:
+        print(str(vars(hex)) + " " + str(vars(hex.structure)))
