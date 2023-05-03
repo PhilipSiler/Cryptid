@@ -3,6 +3,7 @@ import random
 ###GAME VARIABLES GO HERE
 num_tiles = 108
 num_structures = 8 #randomly selects a number between 5 and 8, for the # of structures on the board
+
 class Tile:
         def __init__(self, terrain, structure=None, animal=None, cubes=None) -> None:
             self.terrain_type = terrain
@@ -13,10 +14,6 @@ class Tile:
 class Board:
     def __init__(self) -> None:
         self.pieces = self.random_board_maker()#random.shuffle(self.pieces)
-        self.structure_indices = random.sample(range(0,num_tiles), num_structures)
-        for index in self.structure_indices:
-            self.pieces[index].structure = structures[0]
-            structures.pop(0)
 
         #returns a randomly-ordered array of range(1,7) 
     def random_board_maker(self) -> list[list]:
@@ -33,6 +30,10 @@ class Board:
             if random.choice([True, False]):
                 piece = piece[::-1]
             pieces_combined.extend(piece)
+        structure_indices = random.sample(range(0,num_tiles), num_structures)
+        structures = structure_maker()
+        for index in structure_indices:
+            pieces_combined[index].structure = structures.pop(0)
         return pieces_combined
 
 class Structure:
