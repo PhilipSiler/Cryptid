@@ -53,9 +53,4 @@ def structure_maker() -> list[Structure]:
 structures = structure_maker()
 board_arr = [None] * 108
 
-my_board = Board()
-for hex in my_board.pieces:
-    if hex.structure == None:
-        print(vars(hex))
-    else:
-        print(str(vars(hex)) + " " + str(vars(hex.structure)))
+#my_board = Board()
