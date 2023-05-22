@@ -1,15 +1,16 @@
 import random
+import turtle
 
 ###GAME VARIABLES GO HERE
 num_tiles = 108
 num_structures = 8 #randomly selects a number between 5 and 8, for the # of structures on the board
 
 class Tile:
-        def __init__(self, terrain, structure=None, animal=None, cubes=None) -> None:
-            self.terrain_type = terrain
-            self.structure = structure
-            self.animal = animal
-            self.cubes = cubes
+    def __init__(self, terrain, structure=None, animal=None, cubes=None) -> None:
+        self.terrain_type = terrain
+        self.structure = structure
+        self.animal = animal
+        self.cubes = cubes
 
 class Board:
     def __init__(self) -> None:
@@ -35,7 +36,16 @@ class Board:
         for index in structure_indices:
             pieces_combined[index].structure = structures.pop(0)
         return pieces_combined
+    
+    def draw_board(self):
+        turtle.color("green")
+        turtle.begin_fill()
+        for _ in range(6):
+            turtle.forward(100)
+            turtle.right(60)
+        turtle.end_fill()
 
+#TODO: encapsulate this into w/ structure_maker and structures = structure_maker
 class Structure:
     def __init__(self, color, type) -> None:
         self.color = color
@@ -53,5 +63,3 @@ def structure_maker() -> list[Structure]:
 
 structures = structure_maker()
 board_arr = [None] * 108
-
-#my_board = Board()
